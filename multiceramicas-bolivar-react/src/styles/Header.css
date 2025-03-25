@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 85px;
+    width: 100%;
+    padding: 5px 10%;
+}
+
+header .logo a {
+    text-decoration: none;
+    color: orangered;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 800;
+    font-size: 25px;
+}
+
+header nav .cerrar a {
+    text-decoration: none;
+    color: rgb(225, 214, 210);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    border: 2px solid orangered;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+header nav .cerrar a:hover {
+    background-color: orangered;
+}
