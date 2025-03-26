@@ -14,7 +14,7 @@ const MainPage = () => {
         <div className="row justify-content-center">
           {/* Módulo de Ventas */}
           <div className="col-md-5 m-3 p-3 border border-warning rounded text-center">
-            <Link to="/ventas" className="text-decoration-none text-light">
+            <Link to="/SalesModule" className="text-decoration-none text-light">
               <h4 className="bg-dark text-warning p-2 rounded">Módulo de Ventas</h4>
               <img 
                 src="/img/compras.png" 
