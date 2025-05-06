@@ -1,0 +1,11 @@
+<th style={{ width: "5%" }}>Ciudad</th>
+<th style={{ width: "5%" }}>Función</th>
+
+
+
+
+
+
+
+<td>{cliente.city || "N/A"}</td>
+<td>{cliente.function || "N/A"}</td>

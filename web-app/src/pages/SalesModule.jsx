@@ -1,6 +1,7 @@
 import React from "react";
-import ModuleCard from "../pages/ModuleCard";
-import Header from "./Header";
+import ModuleCard from "../components/ModuleCard";
+import Header from "../components/Header";
+import SalesTable from "../components/SalesTable"; 
 
 const SalesModule = () => {
   return (
@@ -10,6 +11,10 @@ const SalesModule = () => {
 
     <div className="container text-center mt-4">
       <h2 className="text-light fw-bold">MÓDULO DE VENTAS</h2>
+      <SalesTable />
+
+
+
       <div className="row mt-4">
         <div className="col-md-4">
           <ModuleCard

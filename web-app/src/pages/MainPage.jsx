@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -14,7 +14,7 @@ const MainPage = () => {
         <div className="row justify-content-center">
           {/* Módulo de Ventas */}
           <div className="col-md-5 m-3 p-3 border border-warning rounded text-center">
-            <Link to="/SalesModule" className="text-decoration-none text-light">
+            <Link to="/Ventas" className="text-decoration-none text-light">
               <h4 className="bg-dark text-warning p-2 rounded">Módulo de Ventas</h4>
               <img 
                 src="/img/compras.png" 
@@ -24,13 +24,24 @@ const MainPage = () => {
             </Link>
           </div>
 
-          {/* Módulo de Contabilidad */}
+          {/* Módulo de Productos */}
           <div className="col-md-5 m-3 p-3 border border-warning rounded text-center">
-            <Link to="/contabilidad" className="text-decoration-none text-light">
-              <h4 className="bg-dark text-warning p-2 rounded">Módulo de Contabilidad</h4>
+            <Link to="/productos" className="text-decoration-none text-light">
+              <h4 className="bg-dark text-warning p-2 rounded">Módulo de Productos</h4>
               <img 
                 src="/img/2024-10-30_16h58_02.png" 
-                alt="Módulo de Contabilidad" 
+                alt="Módulo de Productos" 
+                className="img-fluid rounded"
+              />
+            </Link>
+          </div>
+          {/* Módulo de Contactos */}
+          <div className="col-md-5 m-3 p-3 border border-warning rounded text-center">
+            <Link to="/Contactos" className="text-decoration-none text-light">
+              <h4 className="bg-dark text-warning p-2 rounded">Módulo de Contactos</h4>
+              <img 
+                src="/img/2024-10-30_16h58_02.png" 
+                alt="Módulo de contactos" 
                 className="img-fluid rounded"
               />
             </Link>

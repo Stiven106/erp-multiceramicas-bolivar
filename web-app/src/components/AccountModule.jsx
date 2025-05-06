@@ -1,5 +1,5 @@
 import React from "react";
-import ModuleCard from "../pages/ModuleCard";
+import ModuleCard from "./ModuleCard";
 import Header from "./Header";
 
 const SalesModule = () => {

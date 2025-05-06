@@ -1,12 +1,12 @@
-"""from flask import Flask, jsonify, requests
+from flask import Flask, jsonify, requests
 
 app = Flask(__name__)
 
-# ===== CONFIGURACIÓN DE ODOO =====
-odoo_url = "http://localhost:8069/jsonrpc"  # URL del JSON-RPC de tu Odoo
-odoo_db = "nombre_de_tu_base_de_datos"      # Nombre de la base de datos en Odoo
-odoo_user = "tu_correo@correo.com"          # Usuario (normalmente es el email)
-odoo_password = "tu_contraseña"             # Contraseña del usuario
+# ===== CONFIGURACIÓN DE ODOO =====        
+odoo_url = "http://localhost:8069/jsonrpc"  # URL del JSON-RPC de Odoo
+odoo_db = "test-db"      # Nombre de la base de datos en Odoo
+odoo_user = "stiven12312@yopmail.com"          # Usuario (normalmente es el email)
+odoo_password = "odoo123"             # Contraseña del usuario
 
 # ===== FUNCIÓN PARA AUTENTICARSE EN ODOO =====
 def odoo_autenticar():
@@ -16,7 +16,11 @@ def odoo_autenticar():
         "params": {
             "service": "common",
             "method": "login",
-            "args": [odoo_db, odoo_user, odoo_password]
+            "args": [
+                odoo_db,
+                odoo_user,
+                odoo_password
+                ]
         },
         "id": 1
     }
@@ -61,4 +65,3 @@ def get_clientes():
 # ===== INICIO DEL SERVIDOR =====
 if __name__ == '__main__':
     app.run(debug=True)
-"""

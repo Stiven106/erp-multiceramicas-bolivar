@@ -4,7 +4,7 @@ from flask_restx import Namespace, Resource
 from app.models.login import UserLogin
 from app.models.api_models import auth_model
 from app.utils.db import db
-from app.utils.role_validation import role_required
+#from app.utils.role_validation import role_required 
 
 auth_ns = Namespace('Auth', description='Endpoints para autenticación', path='/api/v1/auth')
 
@@ -48,3 +48,4 @@ class CreateUser(Resource):
             return {'user_id': user.id, 'user_name': user.username, 'user_role': user.user_rol}, 200
         else:
             return {'message': 'Usuario ya existe.'}, 200
+        
