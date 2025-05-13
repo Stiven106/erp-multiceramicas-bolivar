@@ -12,7 +12,7 @@ const Ventas = () => {
   }, []);
 
   const cellStyle = {
-    width: "5%",
+    width: "25%",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
@@ -63,7 +63,7 @@ const Ventas = () => {
                   <td style={cellStyle}>{venta.invoice_status}</td>
                 </tr>
               ))}
-            </tbody>
+            </tbody> 
           </table>
         </div>
       </div>
