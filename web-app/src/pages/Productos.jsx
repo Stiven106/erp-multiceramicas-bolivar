@@ -79,7 +79,7 @@ const Productos = () => {
   };
 
   return (
-    <div>
+    <div className="bg-dark">
       <Header />
       <div className="container mt-4">
         <div className="flex justify-between mb-4">

@@ -44,7 +44,7 @@ def obtener_productos_desde_odoo():
                 "product.template",
                 "search_read",
                 [[]],
-                {"fields": ["id", "name", "list_price", "default_code", "type"], "limit": 33}
+                {"fields": ["id", "name", "list_price", "default_code", "type"], "limit": 222}
             ]
         },
         "id": 2

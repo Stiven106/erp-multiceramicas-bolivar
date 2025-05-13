@@ -6,3 +6,9 @@ h2 {
     text-align: center;
     padding: 20px;
 }
+
+  body {
+    background-image: url("/web-app/public/img/fondo.png");
+    background-size: cover;
+  }
+

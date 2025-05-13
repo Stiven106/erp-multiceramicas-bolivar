@@ -42,7 +42,7 @@ def obtener_contactos_desde_odoo():
                 "res.partner",
                 "search_read",
                 [[]],
-                {"fields": ["id", "name", "email", "phone"], "limit": 10}
+                {"fields": ["id", "name", "email", "phone"], "limit": 222}
             ]
         },
         "id": 2

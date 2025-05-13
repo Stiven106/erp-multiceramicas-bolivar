@@ -1,11 +1,12 @@
-import React from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/MainPage.css";
+
 
 const MainPage = () => {
   return (
-    <div className="bg-dark text-light min-vh-100">
+    <div className="text-light min-vh-100">
       <Header />
 
       <div className="container text-center py-4">
@@ -42,6 +43,17 @@ const MainPage = () => {
               <img 
                 src="/img/2024-10-30_16h58_02.png" 
                 alt="Módulo de contactos" 
+                className="img-fluid rounded"
+              />
+            </Link>
+          </div>
+          {/* Módulo de Inventario */}
+          <div className="col-md-5 m-3 p-3 border border-warning rounded text-center">
+            <Link to="/Inventario" className="text-decoration-none text-light">
+              <h4 className="bg-dark text-warning p-2 rounded">Módulo de Inventario</h4>
+              <img 
+                src="/img/2024-10-30_16h58_02.png" 
+                alt="Módulo de Inventario" 
                 className="img-fluid rounded"
               />
             </Link>
