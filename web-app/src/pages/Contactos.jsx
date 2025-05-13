@@ -103,19 +103,11 @@ const Contactos = () => {
             </thead>
             <tbody>
               {contactos.map((contacto) => (
-                <tr key={contacto.id} className=" ">
-                  <td className="text-center align-middle col-1">
-                    {contacto.id}
-                  </td>
-                  <td className="text-center align-middle col-4">
-                    {contacto.name}
-                  </td>
-                  <td className="text-center align-middle col-4">
-                    {contacto.email}
-                  </td>
-                  <td className="text-center align-middle col-4">
-                    {contacto.phone || "-"}
-                  </td>
+                <tr key={contacto.id}>
+                  <td className="text-center align-middle col-1">{contacto.id}</td>
+                  <td className="text-center align-middle col-4">{contacto.name}</td>
+                  <td className="text-center align-middle col-4">{contacto.email}</td>
+                  <td className="text-center align-middle col-4">{contacto.phone || "-"}</td>
                   <td className="text-end d-flex justify-content-end align-items-center gap-2">
                     <Button
                       variant="outline"
@@ -141,7 +133,7 @@ const Contactos = () => {
 
       {/* Modal para crear y editar contacto */}
       {modalVisible && (
-        <Modal onClose={() => setModalVisible(false)}>
+        <Modal modalTitle={editingContacto ? "Editar Contacto" : "Crear Contacto"} onClose={() => setModalVisible(false)}>
           <form onSubmit={guardarContacto} className="space-y-4">
             <input
               type="text"

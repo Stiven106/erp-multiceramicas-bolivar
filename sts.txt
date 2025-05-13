@@ -1,11 +1,4 @@
-<th style={{ width: "5%" }}>Ciudad</th>
-<th style={{ width: "5%" }}>Función</th>
 
 
+ODOO DOC: https://documentation.vialaurea.com/developer/tutorials/server_framework_101/03_basicmodel.html?utm_source=chatgpt.com
 
-
-
-
-
-<td>{cliente.city || "N/A"}</td>
-<td>{cliente.function || "N/A"}</td>
