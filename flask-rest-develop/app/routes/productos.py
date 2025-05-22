@@ -9,8 +9,6 @@ odoo_db = "test-db"
 odoo_user = "stiven12312@yopmail.com"
 odoo_password = "odoo123"
 
-# Autenticación
-
 def odoo_autenticar():
     payload = {
         "jsonrpc": "2.0",
@@ -24,8 +22,6 @@ def odoo_autenticar():
     }
     response = requests.post(odoo_url, json=payload)
     return response.json().get("result")
-
-# Obtener productos
 
 def obtener_productos_desde_odoo():
     uid = odoo_autenticar()
@@ -51,8 +47,6 @@ def obtener_productos_desde_odoo():
     }
     response = requests.post(odoo_url, json=payload)
     return response.json().get("result", [])
-
-# Crear producto
 
 def crear_producto_en_odoo(nombre, precio, codigo):
     uid = odoo_autenticar()
@@ -81,8 +75,6 @@ def crear_producto_en_odoo(nombre, precio, codigo):
     else:
         return {"error": "Error al crear producto"}, 500
 
-# Editar producto
-
 def editar_producto_en_odoo(producto_id, nombre, precio, codigo):
     uid = odoo_autenticar()
     if not uid:
@@ -109,8 +101,6 @@ def editar_producto_en_odoo(producto_id, nombre, precio, codigo):
         return {"message": "Producto actualizado correctamente"}, 200
     else:
         return {"error": "Error al actualizar producto"}, 500
-
-# Eliminar producto
 
 def eliminar_producto_en_odoo(producto_id):
     uid = odoo_autenticar()
@@ -139,7 +129,6 @@ def eliminar_producto_en_odoo(producto_id):
     else:
         return {"error": "Error al eliminar producto"}, 500
 
-# Rutas GET, POST, PUT y DELETE
 @productos_ns.route('/api/productos')
 class ProductosResource(Resource):
     def get(self):
@@ -172,4 +161,31 @@ class ProductoResource(Resource):
 
     def delete(self, id):
         return eliminar_producto_en_odoo(id)
-    
+
+# ENDPOINT SUGERIDO (NO NECESARIO PARA EL CRUD, SOLO PARA VENTAS LUEGO)
+@productos_ns.route('/api/variantes')
+class VariantesResource(Resource):
+    def get(self):
+        uid = odoo_autenticar()
+        if not uid:
+            return [], 500
+        payload = {
+            "jsonrpc": "2.0",
+            "method": "call",
+            "params": {
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    odoo_db,
+                    uid,
+                    odoo_password,
+                    "product.product",
+                    "search_read",
+                    [[]],
+                    {"fields": ["id", "name", "list_price", "default_code", "product_tmpl_id"], "limit": 222}
+                ]
+            },
+            "id": 6
+        }
+        response = requests.post(odoo_url, json=payload)
+        return response.json().get("result", []), 200
