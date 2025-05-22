@@ -134,7 +134,12 @@ def eliminar_contacto_en_odoo(contacto_id):
     else:
         return {"error": "Error al eliminar contacto"}, 500
 
-# Ruta GET, POST, PUT y DELETE
+
+
+
+
+
+# Ruta GET, POST, PUT y DELETE Swagger
 @contactos_ns.route('/api/contactos')
 class ContactosResource(Resource):
     # Obtener contactos

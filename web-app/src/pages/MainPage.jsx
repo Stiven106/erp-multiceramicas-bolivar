@@ -1,10 +1,10 @@
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/MainPage.css";
+import "../styles/Main.css";
 
 
-const MainPage = () => {
+const Main = () => {
   return (
     <div className="text-light min-vh-100">
       <Header />
@@ -64,4 +64,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default Main;

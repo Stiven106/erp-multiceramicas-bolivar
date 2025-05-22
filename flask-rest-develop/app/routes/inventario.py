@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, reqparse
 import requests
 
-ventas_ns = Namespace('ventas', description='Operaciones relacionadas con ventas')
+inventario_ns = Namespace('inventario', description='Operaciones relacionadas con inventario')
 
 # Configuración Odoo
 odoo_url = "http://localhost:8069/jsonrpc"
@@ -24,8 +24,9 @@ def odoo_autenticar():
     response = requests.post(odoo_url, json=payload)
     return response.json().get("result")
 
-# Obtener ventas
-def obtener_ventas_desde_odoo():
+# Obtener inventario (stock.quant)
+
+def obtener_inventario_desde_odoo():
     uid = odoo_autenticar()
     if not uid:
         return []
@@ -39,10 +40,10 @@ def obtener_ventas_desde_odoo():
                 odoo_db,
                 uid,
                 odoo_password,
-                "sale.order",
+                "stock.quant",
                 "search_read",
                 [[]],
-                {"fields": ["id", "name", "partner_id", "date_order", "amount_total"], "limit": 222}
+                {"fields": ["id", "product_id", "quantity", "location_id"], "limit": 222}
             ]
         },
         "id": 2
@@ -50,8 +51,8 @@ def obtener_ventas_desde_odoo():
     response = requests.post(odoo_url, json=payload)
     return response.json().get("result", [])
 
-# Crear venta
-def crear_venta_en_odoo(nombre, partner_id, fecha, total):
+# Crear inventario (stock.quant)
+def crear_inventario_en_odoo(product_id, quantity, location_id):
     uid = odoo_autenticar()
     if not uid:
         return {"error": "No se pudo autenticar en Odoo"}, 500
@@ -65,13 +66,12 @@ def crear_venta_en_odoo(nombre, partner_id, fecha, total):
                 odoo_db,
                 uid,
                 odoo_password,
-                "sale.order",
+                "stock.quant",
                 "create",
                 [{
-                    "name": nombre,
-                    "partner_id": partner_id,
-                    "date_order": fecha,
-                    "amount_total": total
+                    "product_id": product_id,
+                    "quantity": quantity,
+                    "location_id": location_id
                 }]
             ]
         },
@@ -79,12 +79,12 @@ def crear_venta_en_odoo(nombre, partner_id, fecha, total):
     }
     response = requests.post(odoo_url, json=payload)
     if response.ok:
-        return {"message": "Venta creada correctamente"}, 201
+        return {"message": "Inventario creado correctamente"}, 201
     else:
-        return {"error": "Error al crear venta"}, 500
+        return {"error": "Error al crear inventario"}, 500
 
-# Editar venta
-def editar_venta_en_odoo(venta_id, nombre, partner_id, fecha, total):
+# Editar inventario
+def editar_inventario_en_odoo(inventario_id, product_id, quantity, location_id):
     uid = odoo_autenticar()
     if not uid:
         return {"error": "No se pudo autenticar en Odoo"}, 500
@@ -98,13 +98,12 @@ def editar_venta_en_odoo(venta_id, nombre, partner_id, fecha, total):
                 odoo_db,
                 uid,
                 odoo_password,
-                "sale.order",
+                "stock.quant",
                 "write",
-                [[venta_id], {
-                    "name": nombre,
-                    "partner_id": partner_id,
-                    "date_order": fecha,
-                    "amount_total": total
+                [[inventario_id], {
+                    "product_id": product_id,
+                    "quantity": quantity,
+                    "location_id": location_id
                 }]
             ]
         },
@@ -112,12 +111,12 @@ def editar_venta_en_odoo(venta_id, nombre, partner_id, fecha, total):
     }
     response = requests.post(odoo_url, json=payload)
     if response.ok:
-        return {"message": "Venta actualizada correctamente"}, 200
+        return {"message": "Inventario actualizado correctamente"}, 200
     else:
-        return {"error": "Error al actualizar venta"}, 500
+        return {"error": "Error al actualizar inventario"}, 500
 
-# Eliminar venta
-def eliminar_venta_en_odoo(venta_id):
+# Eliminar inventario
+def eliminar_inventario_en_odoo(inventario_id):
     uid = odoo_autenticar()
     if not uid:
         return {"error": "No se pudo autenticar en Odoo"}, 500
@@ -131,53 +130,49 @@ def eliminar_venta_en_odoo(venta_id):
                 odoo_db,
                 uid,
                 odoo_password,
-                "sale.order",
+                "stock.quant",
                 "unlink",
-                [[venta_id]]
+                [[inventario_id]]
             ]
         },
         "id": 5
     }
     response = requests.post(odoo_url, json=payload)
     if response.ok:
-        return {"message": "Venta eliminada correctamente"}, 200
+        return {"message": "Inventario eliminado correctamente"}, 200
     else:
-        return {"error": "Error al eliminar venta"}, 500
+        return {"error": "Error al eliminar inventario"}, 500
 
 # Rutas GET, POST, PUT y DELETE
-@ventas_ns.route('/api/ventas')
-class VentasResource(Resource):
+@inventario_ns.route('/api/inventario')
+class InventarioResource(Resource):
     def get(self):
-        ventas = obtener_ventas_desde_odoo()
-        return ventas, 200
+        inventario = obtener_inventario_desde_odoo()
+        return inventario, 200
 
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("name", required=True, help="El nombre de la venta es requerido")
-        parser.add_argument("partner_id", required=True, type=int, help="El ID del cliente es requerido")
-        parser.add_argument("date_order", required=True, help="La fecha de la venta es requerida")
-        parser.add_argument("amount_total", required=True, type=float, help="El total de la venta es requerido")
+        parser.add_argument("product_id", required=True, type=int, help="El ID del producto es requerido")
+        parser.add_argument("quantity", required=True, type=float, help="La cantidad es requerida")
+        parser.add_argument("location_id", required=True, type=int, help="El ID de la ubicación es requerido")
         args = parser.parse_args()
-        nombre = args["name"]
-        partner_id = args["partner_id"]
-        fecha = args["date_order"]
-        total = args["amount_total"]
-        return crear_venta_en_odoo(nombre, partner_id, fecha, total)
+        product_id = args["product_id"]
+        quantity = args["quantity"]
+        location_id = args["location_id"]
+        return crear_inventario_en_odoo(product_id, quantity, location_id)
 
-@ventas_ns.route('/api/ventas/<int:id>')
-class VentaResource(Resource):
+@inventario_ns.route('/api/inventario/<int:id>')
+class InventarioItemResource(Resource):
     def put(self, id):
         parser = reqparse.RequestParser()
-        parser.add_argument("name", required=True, help="El nombre de la venta es requerido")
-        parser.add_argument("partner_id", required=True, type=int, help="El ID del cliente es requerido")
-        parser.add_argument("date_order", required=True, help="La fecha de la venta es requerida")
-        parser.add_argument("amount_total", required=True, type=float, help="El total de la venta es requerido")
+        parser.add_argument("product_id", required=True, type=int, help="El ID del producto es requerido")
+        parser.add_argument("quantity", required=True, type=float, help="La cantidad es requerida")
+        parser.add_argument("location_id", required=True, type=int, help="El ID de la ubicación es requerido")
         args = parser.parse_args()
-        nombre = args["name"]
-        partner_id = args["partner_id"]
-        fecha = args["date_order"]
-        total = args["amount_total"]
-        return editar_venta_en_odoo(id, nombre, partner_id, fecha, total)
+        product_id = args["product_id"]
+        quantity = args["quantity"]
+        location_id = args["location_id"]
+        return editar_inventario_en_odoo(id, product_id, quantity, location_id)
 
     def delete(self, id):
-        return eliminar_venta_en_odoo(id)
+        return eliminar_inventario_en_odoo(id)

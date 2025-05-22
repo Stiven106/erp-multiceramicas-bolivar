@@ -8,6 +8,8 @@ from app.utils.db import db
 
 auth_ns = Namespace('Auth', description='Endpoints para autenticación', path='/api/v1/auth')
 
+
+# Definir la ruta para autenticarse 
 @auth_ns.route('/token', methods=['POST'])
 class Token(Resource):
     @auth_ns.doc(description='Autenticarse y obtener token de acceso.', responses={200: 'Success', 401: 'Unauthorized'})
@@ -27,6 +29,7 @@ class Token(Resource):
         else:
             return {'response': 'Usuario o contraseña incorrectos.'}, 401
         
+# Definir la ruta para crear nuevos usuarios
 @auth_ns.route('/create_user', methods=['POST'])
 class CreateUser(Resource):
     @auth_ns.doc(description='Crear nuevo usuario.', responses={200: 'Success'})
@@ -38,7 +41,8 @@ class CreateUser(Resource):
         username = data['username']
         password = data['password']
 
-        user = UserLogin.query.filter_by(username=username).first()
+        
+        user = UserLogin.query.filter_by(username=username).first() 
 
         if user is None:
             user = UserLogin(username=username, password=password)

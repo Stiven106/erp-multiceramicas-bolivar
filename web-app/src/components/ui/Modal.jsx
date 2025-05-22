@@ -8,7 +8,7 @@ const Modal = ({ children, onClose, modalTitle }) => {
         <div className="modal-content bg-dark text-light border-0 shadow-lg rounded-4">
           <div className="modal-header border-0">
             <h5 className="modal-title fs-4" id="exampleModalLabel">
-              {modalTitle} {/* Aquí el título será dinámico */}
+              {modalTitle} 
             </h5>
             <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={onClose}></button>
           </div>

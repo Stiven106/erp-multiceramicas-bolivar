@@ -17,6 +17,7 @@ from .routes.auth import auth_ns
 from app.routes.contactos import contactos_ns
 from app.routes.productos import productos_ns
 from app.routes.ventas import ventas_ns
+from app.routes.inventario import inventario_ns
 
 
 
@@ -32,6 +33,7 @@ def create_app():
     api.add_namespace(contactos_ns)
     api.add_namespace(productos_ns)
     api.add_namespace(ventas_ns)
+    api.add_namespace(inventario_ns)
     
     db.init_app(app)
     jwt.init_app(app)

@@ -172,3 +172,4 @@ class ProductoResource(Resource):
 
     def delete(self, id):
         return eliminar_producto_en_odoo(id)
+    

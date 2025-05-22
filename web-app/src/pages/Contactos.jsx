@@ -104,10 +104,18 @@ const Contactos = () => {
             <tbody>
               {contactos.map((contacto) => (
                 <tr key={contacto.id}>
-                  <td className="text-center align-middle col-1">{contacto.id}</td>
-                  <td className="text-center align-middle col-4">{contacto.name}</td>
-                  <td className="text-center align-middle col-4">{contacto.email}</td>
-                  <td className="text-center align-middle col-4">{contacto.phone || "-"}</td>
+                  <td className="text-center align-middle col-1">
+                    {contacto.id}
+                  </td>
+                  <td className="text-center align-middle col-4">
+                    {contacto.name}
+                  </td>
+                  <td className="text-center align-middle col-4">
+                    {contacto.email}
+                  </td>
+                  <td className="text-center align-middle col-4">
+                    {contacto.phone || "-"}
+                  </td>
                   <td className="text-end d-flex justify-content-end align-items-center gap-2">
                     <Button
                       variant="outline"
@@ -133,8 +141,12 @@ const Contactos = () => {
 
       {/* Modal para crear y editar contacto */}
       {modalVisible && (
-        <Modal modalTitle={editingContacto ? "Editar Contacto" : "Crear Contacto"} onClose={() => setModalVisible(false)}>
+        <Modal
+          modalTitle={editingContacto ? "Editar Contacto" : "Crear Contacto"}
+          onClose={() => setModalVisible(false)}
+        >
           <form onSubmit={guardarContacto} className="space-y-4">
+            {/* Name */}
             <input
               type="text"
               placeholder="Nombre"
@@ -144,6 +156,7 @@ const Contactos = () => {
               }
               required
             />
+            {/* Email */}
             <input
               type="email"
               placeholder="Email"
@@ -153,6 +166,7 @@ const Contactos = () => {
               }
               required
             />
+            {/* Telefono */}
             <input
               type="text"
               placeholder="Teléfono"
@@ -162,6 +176,7 @@ const Contactos = () => {
               }
               required
             />
+            {/* Telefono */}
             <Button type="submit">
               {editingContacto ? "Actualizar" : "Crear"} Contacto
             </Button>

@@ -2,3 +2,12 @@
 
 ODOO DOC: https://documentation.vialaurea.com/developer/tutorials/server_framework_101/03_basicmodel.html?utm_source=chatgpt.com
 
+-Terminar los 2 modulos
+-Crear los modelos para generar el expect de cada modulo (Swagger)
+-Ventana emergente sobre los items listados de los modulos con informacion mas amplificada.
+
+Posibles proyectos: Dashboard
+
+ver el curso de fazt sobre odoo
+
+
