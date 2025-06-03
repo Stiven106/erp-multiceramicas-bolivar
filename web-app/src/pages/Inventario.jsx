@@ -97,7 +97,7 @@ const Inventario = () => {
             <thead>
               <tr>
                 <th className="text-center col-1">ID</th>
-                <th className="text-center col-4">ID Producto</th>
+                <th className="text-center col-4">Product DATA</th>
                 <th className="text-center col-4">Cantidad</th>
                 <th className="text-center col-4">ID Ubicación</th>
                 <th className="text-center col-2">Acciones</th>
