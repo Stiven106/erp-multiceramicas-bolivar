@@ -1,15 +1,35 @@
-import React, { useState } from "react"; // Necesario para manejar el estado de inputs
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  // ✅ Se agregan estados para capturar los valores del formulario
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  // ✅ Esta función ahora hace un POST al backend
+  // Verificar si el usuario ya está autenticado al cargar el componente
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const currentTime = Date.now() / 1000;
+        
+        // Si el token no ha expirado, redirigir a main
+        if (payload.exp > currentTime) {
+          navigate('/main');
+        } else {
+          // Token expirado, eliminarlo
+          localStorage.removeItem('token');
+        }
+      } catch (error) {
+        // Token inválido, eliminarlo
+        localStorage.removeItem('token');
+      }
+    }
+  }, [navigate]);
+
+  //  Esta función ahora hace un POST al backend
   const handleLogin = async (e) => {
     e.preventDefault(); // Evita recarga
 
@@ -54,15 +74,16 @@ const Login = () => {
         </div>
         <div className="password">
           <label>Contraseña:</label>
-          {/* ✅ Conectar el input con el estado */}
+          {/*  Conectar el input con el estado */}
           <input
             type="password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
         <button type="submit">Ingresar</button>
+
+        </div>
       </form>
     </div>
   );

@@ -6,17 +6,44 @@ import Contactos from "./pages/Contactos";
 import Productos from "./pages/Productos"
 import Ventas from "./pages/Ventas";
 import Inventario from "./pages/Inventario"
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/main" element={<Main />} />
         <Route path="/" element={<Login />} />
-        <Route path="/Ventas" element={<Ventas />} />
-        <Route path="/Contactos" element={<Contactos />} />
-        <Route path="/Productos" element={<Productos />} />
-        <Route path="/Inventario" element={<Inventario />} />
+        
+        {/* Rutas protegidas */}
+        <Route path="/main" element={
+          <ProtectedRoute>
+            <Main />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/Ventas" element={
+          <ProtectedRoute>
+            <Ventas />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/Contactos" element={
+          <ProtectedRoute>
+            <Contactos />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/Productos" element={
+          <ProtectedRoute>
+            <Productos />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/Inventario" element={
+          <ProtectedRoute>
+            <Inventario />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );
